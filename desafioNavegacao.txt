@@ -1,0 +1,28 @@
+Adm
+ -> cadastro de usuarios
+ -> configurações
+ -> resetar senha
+
+Compras
+ -> registrar cliente
+ -> registrar compra
+ -> gerar nota fiscal
+ -> consultar pedidos
+
+Financeiro
+ -> consultar contas a pagar
+ -> Consultar contas a receber
+ -> registrar pagamentos
+ -> registrar recebimentos
+
+Módulos
+ -> stack
+
+ADM
+ -> bottom
+
+Compras
+ -> Drawer
+
+Financeiro
+-> top-nav
