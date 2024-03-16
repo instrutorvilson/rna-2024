@@ -1,36 +1,39 @@
-import { StyleSheet, View, Text, Button } from "react-native"
-export default function Home({navigation}){
-    return(
+import { StyleSheet, View, Text, Button, Pressable } from "react-native"
+export default function Home({ navigation }) {
+    return (
         <View style={styles.container}>
-            <Text style={{textTransform: 'uppercase'}}>Autentication Firebase</Text> 
-            <View>
-                <Button
-                   title="Cadastro"
-                   onPress={()=> navigation.navigate('cadastro')}
-                />
-            </View>
-            <View>
-                <Button
-                   title="Login"
-                   onPress={()=> navigation.navigate('login')}
-                />
-            </View>
+            <Text style={{ textTransform: 'uppercase' }}>Autentication Firebase</Text>
+            <Pressable
+                style={styles.btmenu}
+                onPress={() => navigation.navigate('login')}
+            >
+                <Text>Login</Text>
+            </Pressable>
 
-            <View>
-                <Button
-                   title="Cadastro contato"
-                   onPress={()=> navigation.navigate('cadastro/contato')}
-                />
-            </View>
+            <Pressable
+                style={styles.btmenu}
+                onPress={() => navigation.navigate('cadastro/contato')}
+            >
+                <Text>Cadastro de contato</Text>
+            </Pressable>
+
         </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-  });
+    btmenu: {
+        backgroundColor: 'lightblue',
+        width: '200px',
+        borderRadius: '20px',
+        alignItems: 'center',
+        marginVertical: '10px',
+        padding: '10px'
+    }
+});

@@ -15,7 +15,7 @@ export default function App() {
           <Stack.Screen name='home' component={Home}/>
           <Stack.Screen name='cadastro' component={CadUser}/>
           <Stack.Screen name='login' component={Login}/>
-          <Stack.Screen name='cadastro/contato' component={CadContato}/>
+          <Stack.Screen name='cadastro/contato' component={CadContato} options={{title:'Novo contato'}}/>
        </Stack.Navigator>
       <Toast />
     </NavigationContainer>

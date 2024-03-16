@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import app from '../configuracao/firebaseConfig'
 import Toast from 'react-native-toast-message'
 
-export default function Login() {
+export default function Login({ navigation }) {
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
 
@@ -54,7 +54,7 @@ export default function Login() {
 
     return (
         <View style={styles.container}>
-            <Text>Informe email</Text>
+            <Text style={styles.rotulo}>Informe email</Text>
             <TextInput
                 style={styles.input}
                 defaultValue={email}
@@ -62,7 +62,7 @@ export default function Login() {
                 placeholder='Ex:maria@gmail.com'
             />
 
-            <Text>Informe senha</Text>
+            <Text style={styles.rotulo}>Informe senha</Text>
             <TextInput
                 style={styles.input}
                 defaultValue={senha}
@@ -72,11 +72,10 @@ export default function Login() {
             />
 
 
-            <Button
-                title='Logar'
-                onPress={logar}
-            />
-
+            <View style={styles.containerMenu}>
+                <Text style={{margin:'10px', color:'red'}} onPress={logar}>Logar</Text>
+                <Text style={{margin:'10px', color:'blue'}} onPress={() => navigation.navigate('cadastro')}>Registrar?</Text>
+            </View>
         </View>
     )
 }
@@ -85,12 +84,24 @@ const styles = StyleSheet.create({
     input: {
         marginVertical: '5px',
         padding: '10px',
+        borderBottomWidth: '1px'
 
     },
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
+        alignItems: 'left',
         justifyContent: 'center',
-      },
+        padding: '100px'
+    },
+    containerMenu:{
+        display: 'flex',
+        flexDirection:'row',
+        justifyContent:'center'
+    },
+    rotulo:{
+        fontWeight:'700', 
+        fontSize: '18px',
+        fontFamily: 'verdana'
+    }
 });

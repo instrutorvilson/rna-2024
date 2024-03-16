@@ -65,7 +65,7 @@ export default function CadUser() {
     }
     return (
         <View style={styles.container}>
-            <Text style={{textAlign:'left'}}>Informe email</Text>
+            <Text style={styles.rotulo}>Informe email</Text>
             <TextInput
                 style={styles.input}
                 defaultValue={email}
@@ -73,7 +73,7 @@ export default function CadUser() {
                 placeholder='Ex:maria@gmail.com'
             />
 
-            <Text>Informe senha</Text>
+            <Text style={styles.rotulo}>Informe senha</Text>
             <TextInput
                 style={styles.input}
                 defaultValue={senha}
@@ -82,7 +82,7 @@ export default function CadUser() {
                 placeholder='Ex:123456'
             />
 
-            <Text>Confirme senha</Text>
+            <Text  style={styles.rotulo}>Confirme senha</Text>
             <TextInput
                 style={styles.input}
                 defaultValue={confirmaSenha}
@@ -94,7 +94,6 @@ export default function CadUser() {
                 title='Gravar'
                 onPress={gravar}
             />
-
         </View>
     )
 }
@@ -103,12 +102,19 @@ const styles = StyleSheet.create({
     input: {
         marginVertical: '5px',
         padding: '10px',
+        borderBottomWidth: '1px'
 
     },
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
+        alignItems: 'left',
         justifyContent: 'center',
+        padding:'100px'
       },
+      rotulo:{
+        fontWeight:'700', 
+        fontSize: '18px',
+        fontFamily: 'verdana'
+    }
 });
