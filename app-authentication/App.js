@@ -2,12 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Toast from 'react-native-toast-message'
 import CadUser from './src/componentes/cadUser';
+import Login from './src/componentes/login';
 
 export default function App() {
   return (
     <View style={styles.container}>
       <Text style={{marginBottom:'20px', textTransform:'uppercase'}}>Authentication Firebase</Text>
-      <CadUser />
+      <Login />
       <StatusBar style="auto" />
       <Toast />
     </View>
