@@ -53,7 +53,7 @@ export default function Login() {
     }
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Informe email</Text>
             <TextInput
                 style={styles.input}
@@ -86,5 +86,11 @@ const styles = StyleSheet.create({
         marginVertical: '5px',
         padding: '10px',
 
-    }
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 });

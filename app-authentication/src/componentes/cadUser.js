@@ -64,8 +64,8 @@ export default function CadUser() {
         setConfirmaSenha('')
     }
     return (
-        <View>
-            <Text>Informe email</Text>
+        <View style={styles.container}>
+            <Text style={{textAlign:'left'}}>Informe email</Text>
             <TextInput
                 style={styles.input}
                 defaultValue={email}
@@ -104,5 +104,11 @@ const styles = StyleSheet.create({
         marginVertical: '5px',
         padding: '10px',
 
-    }
+    },
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
 });
