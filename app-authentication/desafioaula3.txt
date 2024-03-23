@@ -1,0 +1,9 @@
+git clone https://github.com/instrutorvilson/rna-2024.git -b aula-firebase
+
+nome
+email
+fone
+
+Criar campos para usuario informar o valor que deseja para os atributos do contato
+
+validar para que não seja informado valores vazios
