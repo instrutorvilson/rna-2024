@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, Text, Button, TextInput } from "react-native"
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { getFirestore, collection, addDoc } from "firebase/firestore"
+import { getFirestore, collection, addDoc, query, where, getDocs } from "firebase/firestore"
 import app from '../configuracao/firebaseConfig'
 
 import Toast from 'react-native-toast-message'
@@ -26,21 +26,46 @@ export default function CadContato({ navigation }) {
         }
     }
 
-    async function handleGravar() {
-       if(!validarDados()){
-          return
+    async function emailJaCadastrado(_email) {
+       try{
+        const querySnapshot  = await getDocs(collection(db,'contatos'), where('email','==', _email));
+        let emailExists = false
+        querySnapshot .forEach((doc) => {
+            if(_email === doc.data().email){
+                emailExists = true
+            }
+        })
+        return emailExists
+       }catch(error){
+           console.log(`Erro: ${error}`)
+           return false
        }
-        //grava a coleçaõ no google cloud
-       await  addDoc(collection(db, 'contatos'), { nome, email, fone })
-       Toast.show({
-        type: 'success',
-        text1: 'Parabéns',
-        text2: 'O contato foi cadastrado com sucesso'
-    })
     }
 
-    function validarDados(){
-        if(nome == ''){
+    async function handleGravar() {
+        if (!validarDados()) {
+            return
+        }
+        if (emailJaCadastrado(email)) {
+            Toast.show({
+                type: 'error',
+                text1: 'Cuidado',
+                text2: 'Já existe um contato com esse email'
+            })
+            return
+        }
+
+        //grava a coleçaõ no google cloud
+        await addDoc(collection(db, 'contatos'), { nome, email, fone })
+        Toast.show({
+            type: 'success',
+            text1: 'Parabéns',
+            text2: 'O contato foi cadastrado com sucesso'
+        })
+    }
+
+    function validarDados() {
+        if (nome == '') {
             Toast.show({
                 type: 'error',
                 text1: 'Cuidado',
@@ -50,7 +75,7 @@ export default function CadContato({ navigation }) {
             return false
         }
         //valida se email foi informado
-        if(email == ''){
+        if (email == '') {
             Toast.show({
                 type: 'error',
                 text1: 'Cuidado',
@@ -60,7 +85,7 @@ export default function CadContato({ navigation }) {
             return false
         }
         //valida se fone foi informado
-        if(fone == ''){
+        if (fone == '') {
             Toast.show({
                 type: 'error',
                 text1: 'Cuidado',
