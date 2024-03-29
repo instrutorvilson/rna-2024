@@ -7,9 +7,9 @@ import app from '../configuracao/firebaseConfig'
 import Toast from 'react-native-toast-message'
 
 export default function CadContato({ navigation }) {
-    const [nome, setNome] = useState('')
-    const [email, setEmail] = useState('')
-    const [fone, setFone] = useState('')
+    const [nome, setNome] = useState('m')
+    const [email, setEmail] = useState('josefina@gmail.com')
+    const [fone, setFone] = useState('123456')
 
     const nomeRef = useRef('')
     const emailRef = useRef('')
@@ -27,15 +27,18 @@ export default function CadContato({ navigation }) {
     }
 
     async function emailJaCadastrado(_email) {
-       try{
-        const querySnapshot  = await getDocs(collection(db,'contatos'), where('email','==', _email));
-        let emailExists = false
+        try{
+        const q  = query(collection(db,'contatos'), where('email','==', _email));
+        const querySnapshot = await getDocs(q)
+        /* let emailExists = false
         querySnapshot .forEach((doc) => {
+            console.log(doc.data().email)
             if(_email === doc.data().email){
                 emailExists = true
             }
         })
-        return emailExists
+        return emailExists*/
+        return querySnapshot.size > 0
        }catch(error){
            console.log(`Erro: ${error}`)
            return false
@@ -46,7 +49,8 @@ export default function CadContato({ navigation }) {
         if (!validarDados()) {
             return
         }
-        if (emailJaCadastrado(email)) {
+        
+        if (await emailJaCadastrado(email)) {
             Toast.show({
                 type: 'error',
                 text1: 'Cuidado',

@@ -1,5 +1,5 @@
 import { View, Text, Button, StyleSheet } from "react-native";
-import { Pressable } from "react-native-web";
+import { Pressable } from "react-native";
 
 export default function CardContato(props) {
     return (
@@ -30,7 +30,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
         paddingHorizontal: '20px',
-        width: '70%',
         margin: 'auto',
         borderWidth: '1px',
         marginVertical: '3px'        
