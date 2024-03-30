@@ -23,8 +23,9 @@ export default function App() {
        </Stack.Navigator>
       <Toast />
     </NavigationContainer>*/
-    /*<ConsultaContatos />*/ 
-    <CadLocais />   
+    <ConsultaContatos /> 
+   /* <CadLocais />  */
+
   );
 }
 
