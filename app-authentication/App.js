@@ -11,7 +11,7 @@ const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
+    /*<NavigationContainer>
        <Stack.Navigator>
           <Stack.Screen name='home' component={Home}/>
           <Stack.Screen name='cadastro' component={CadUser}/>
@@ -20,7 +20,8 @@ export default function App() {
           <Stack.Screen name='cadastro/consulta' component={ConsultaContatos} options={{title:'Listar contato'}}/>
        </Stack.Navigator>
       <Toast />
-    </NavigationContainer>
+    </NavigationContainer>*/
+    <ConsultaContatos />
   );
 }
 
