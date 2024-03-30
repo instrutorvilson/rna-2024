@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, View, Text, Button, TextInput } from "react-native"
+import { View, Text, Button, TextInput } from "react-native"
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getFirestore, collection, addDoc, query, where, getDocs } from "firebase/firestore"
 import app from '../configuracao/firebaseConfig'
+import styles from '../estilos/estilos'
 
 import Toast from 'react-native-toast-message'
 
@@ -17,6 +18,7 @@ export default function CadContato({ navigation }) {
 
     //pegar a base de dados
     const db = getFirestore(app)
+    
     useEffect(() => { verificaUserLogado() }, [])
 
     async function verificaUserLogado() {
@@ -49,7 +51,7 @@ export default function CadContato({ navigation }) {
         if (!validarDados()) {
             return
         }
-        
+       
         if (await emailJaCadastrado(email)) {
             Toast.show({
                 type: 'error',
@@ -140,24 +142,3 @@ export default function CadContato({ navigation }) {
     )
 }
 
-const styles = StyleSheet.create({
-    input: {
-        marginVertical: '5px',
-        padding: '10px',
-        borderBottomWidth: '1px'
-
-    },
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'left',
-        justifyContent: 'center',
-        padding: '100px'
-    },
-    rotulo: {
-        fontWeight: '700',
-        fontSize: '14px',
-        fontFamily: 'verdana',
-        marginTop: '10px'
-    }
-});

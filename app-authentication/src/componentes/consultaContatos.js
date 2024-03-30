@@ -25,8 +25,7 @@ export default function ConsultaContatos() {
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.label}>Consulta Contatos</Text>
             {
-                <FlatList
-                    contentContainerStyle={{ flex: 1 }}
+                <FlatList                    
                     data={ lista }
                     renderItem={({ item }) => <CardContato item={item} />}
                     keyExtractor={(item) => item.id.toString()}

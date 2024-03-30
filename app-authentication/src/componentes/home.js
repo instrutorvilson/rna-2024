@@ -24,6 +24,13 @@ export default function Home({ navigation }) {
                 <Text>Consulta de contato</Text>
             </Pressable>
 
+            <Pressable
+                style={styles.btmenu}
+                onPress={() => navigation.navigate('cadastro/locais')}
+            >
+                <Text>Cadastro de Locais</Text>
+            </Pressable>
+
         </View>
     )
 }

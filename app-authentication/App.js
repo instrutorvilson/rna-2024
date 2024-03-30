@@ -6,21 +6,25 @@ import Login from './src/componentes/login';
 import Home from './src/componentes/home';
 import CadContato from './src/componentes/cadContato';
 import ConsultaContatos from './src/componentes/consultaContatos';
+import CadLocais from './src/componentes/cadLocais';
 
 const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <NavigationContainer>
+    /*<NavigationContainer>
        <Stack.Navigator>
           <Stack.Screen name='home' component={Home}/>
           <Stack.Screen name='cadastro' component={CadUser}/>
           <Stack.Screen name='login' component={Login}/>
           <Stack.Screen name='cadastro/contato' component={CadContato} options={{title:'Novo contato'}}/>
           <Stack.Screen name='cadastro/consulta' component={ConsultaContatos} options={{title:'Listar contato'}}/>
+          <Stack.Screen name='cadastro/locais' component={CadLocais} options={{title:'Novo local'}}/>
        </Stack.Navigator>
       <Toast />
-    </NavigationContainer>
+    </NavigationContainer>*/
+    /*<ConsultaContatos />*/ 
+    <CadLocais />   
   );
 }
 
