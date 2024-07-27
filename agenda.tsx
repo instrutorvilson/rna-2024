@@ -7,7 +7,7 @@ const contatos = [
         foto: 'https://mighty.tools/mockmind-api/content/cartoon/26.jpg'
     },
     {
-        id:2,
+        id: 2,
         nome: 'maria',
         foto: 'https://mighty.tools/mockmind-api/content/cartoon/10.jpg'
     },
@@ -28,9 +28,6 @@ export default function Agenda() {
                     <CardContato contato={item} />
                 }
 
-            />
-
-
-        </View>
+            />        </View>
     )
 }
