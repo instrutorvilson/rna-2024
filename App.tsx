@@ -12,6 +12,7 @@ import {
   
 } from 'react-native';
 import Login from './login';
+import Agenda from './agenda';
 
 export default function App() {
   const [texto, setTexto] = useState('Mostrar')
@@ -114,8 +115,9 @@ export default function App() {
           onBlur={handleBlur}
           placeholder='informe seu nome'
         />
-  </Animated.View>*/}
-  <Login />
+  </Animated.View>
+  <Login />*/}
+  <Agenda />
     </View>
   );
 }
