@@ -1,11 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View} from 'react-native';
+import HandleGestos from './handleGestos';
+import ListaCards from './listaCards';
 
-export default function App() {
+export default function App() { 
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <ListaCards />
     </View>
   );
 }
@@ -17,4 +17,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  box:{
+    width: 100,
+    height: 100,
+    backgroundColor: 'blue'
+  }
 });
