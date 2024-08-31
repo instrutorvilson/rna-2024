@@ -1,11 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
+import Toast from 'react-native-toast-message'
 import { StyleSheet, Text, View } from 'react-native';
+import CadContato from './cadContato';
+import Consulta from './consulta';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Consulta />
+      <Toast />
     </View>
   );
 }
