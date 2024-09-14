@@ -1,7 +1,8 @@
 
 import { useRef, useState } from 'react'
-import { View, Text, TextInput, StyleSheet, Button } from 'react-native'
+import { View, Text, TextInput, StyleSheet, Button, Image } from 'react-native'
 import { getFirestore, collection, addDoc, where, query, getDocs } from 'firebase/firestore'
+import { getDownloadURL, getStorage, ref, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 import app from './firebaseConfig'
 
 const CadContato: React.FC = () => {
@@ -10,6 +11,9 @@ const CadContato: React.FC = () => {
     const [fone, setFone] = useState<string>('123456')
     const [msg, setMsg] = useState<any>('')
 
+    const [image, setImage] = useState<any>(null)
+    const [url, setUrl] = useState('');
+
     const nomeRef = useRef<any>('')
     const emailRef = useRef<any>('')
     const foneRef = useRef<any>('')
@@ -17,22 +21,56 @@ const CadContato: React.FC = () => {
     const db = getFirestore(app)
 
     async function handleGravar() {
+        /* try {
+             const dados = await query(collection(db, 'contatos'), where('email', '==', email))
+             const snapshotDados = await getDocs(dados)
+ 
+             if(snapshotDados.size > 0){
+                 setMsg('Já existe um contato com o email informado')               
+                 return
+             }
+ 
+             await addDoc(collection(db, 'contatos'), { nome, fone, email, createdAT: new Date() })
+             setMsg('Contato inserido com sucesso')
+         }
+         catch (error) {
+             setMsg(error.message)
+         }*/ 
+        uploadImageToFirebaseStorage()      
+
+    }
+    
+    function uploadImageToFirebaseStorage(){
         try {
-            const dados = await query(collection(db, 'contatos'), where('email', '==', email))
-            const snapshotDados = await getDocs(dados)
-
-            if(snapshotDados.size > 0){
-                setMsg('Já existe um contato com o email informado')               
-                return
-            }
-
-            await addDoc(collection(db, 'contatos'), { nome, fone, email, createdAT: new Date() })
-            setMsg('Contato inserido com sucesso')
+            console.log(image)
+            const storageRef = ref(getStorage(app), `images/${image.name}`)
+            const uploadTask = uploadBytesResumable(storageRef, image)
+            uploadTask.on(
+                'state_changed',
+               /* (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    // setProgress(progress);  // Atualiza a barra de progresso
+                },
+                (error) => {
+                    console.error('Erro durante o upload:', error);
+                },*/
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setUrl(downloadURL);                        
+                    });
+                }
+            )           
         }
         catch (error) {
-            setMsg(error.message)
+            console.log(error)
         }
-    }   
+    }
+
+    function handleImageChange(e: any) {
+        if (e.target.files[0]) {           
+            setImage(e.target.files[0]);
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -63,11 +101,17 @@ const CadContato: React.FC = () => {
                 placeholder="Ex: (47)9090-7080"
                 ref={foneRef}
             />
+            <Text>Selecione Imagem</Text>
+            <Image
+                source={{ uri: url }}
+                style={{ width: 40, height: 40 }}
+            />
+            <input type="file" onChange={handleImageChange} />
             <Button
                 title='gravar'
                 onPress={handleGravar}
             />
-            
+
             <Text>{msg}</Text>
         </View>
     )
