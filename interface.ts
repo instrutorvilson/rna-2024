@@ -3,6 +3,7 @@ interface IContatos {
     nome: string
     email: string
     fone: string
+    urlImage: string
 }
 
 export { IContatos }

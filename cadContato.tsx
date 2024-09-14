@@ -12,7 +12,7 @@ const CadContato: React.FC = () => {
     const [msg, setMsg] = useState<any>('')
 
     const [image, setImage] = useState<any>(null)
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState<string | undefined>('');
 
     const nomeRef = useRef<any>('')
     const emailRef = useRef<any>('')
@@ -33,8 +33,9 @@ const CadContato: React.FC = () => {
                 setMsg("selecione a foto do contato")
                 return
              }
-            await uploadFotoContatoToFirebaseStorage() 
-            await addDoc(collection(db, 'contatos'), { nome, fone, email, urlImage: url, createdAT: new Date() })
+            const urlDownloaded = await uploadFotoContatoToFirebaseStorage() 
+            setUrl(urlDownloaded)
+            await addDoc(collection(db, 'contatos'), { nome, fone, email, urlImage: urlDownloaded, createdAT: new Date() })
              setMsg('Contato inserido com sucesso')
          }
          catch (error) {
@@ -48,11 +49,12 @@ const CadContato: React.FC = () => {
             const storageRef = ref(getStorage(app), `images/${image.name}`)
             await  uploadBytes(storageRef, image)
             const urlDownload = await getDownloadURL(storageRef)
-            setUrl(urlDownload)
+            return urlDownload;
         }
         catch (error) {
             console.log(error)
         }
+        
     }
 
     function handleImageChange(e: any) {

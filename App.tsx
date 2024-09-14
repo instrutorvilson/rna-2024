@@ -2,6 +2,7 @@ import Toast from 'react-native-toast-message'
 import { StyleSheet, Text, View } from 'react-native';
 import CadContato from './cadContato';
 import Consulta from './consulta';
+import CadUser from './caduser';
 
 export default function App() {
   return (

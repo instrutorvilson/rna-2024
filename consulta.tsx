@@ -19,8 +19,9 @@ const Consulta: React.FC = () => {
                 id: doc.id,
                 nome: doc.data().nome,
                 email: doc.data().email,
-                fone: doc.data().fone
-            }
+                fone: doc.data().fone,
+                urlImage: doc.data().urlImage
+            }                      
             return contato
         }
         )
