@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Button, TextInput } from 'react-native'
-import { deleteDoc, doc, getFirestore } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDocs, getFirestore, query, updateDoc, where } from 'firebase/firestore'
 import app from './firebaseConfig'
 import { useState, useRef } from 'react'
 import { IContatos } from './interface'
@@ -23,8 +23,25 @@ const CardContato: React.FC = ({ contato, excluiu }) => {
         excluiu(true)
     }
 
-    function handleGravar(){
+    async function handleGravar(){
+        const documentoRef = doc(db, 'contatos', contato.id)
+        try{
+            if((contato.email != ct.email)){
+                const dados = await query(collection(db, 'contatos'), where('email', '==', ct.email))
+                const snapshotDados = await getDocs(dados)
+    
+                if(snapshotDados.size > 0 ){
+                    setMsg('Já existe um contato com o email informado')               
+                    return
+                }
+            }
+                   
+           await updateDoc(documentoRef, { nome:ct.nome, email: ct.email, fone:ct.fone} )
+           setMsg("Contato alterado com sucesso")
 
+        }catch(error){
+            console.log(`Erro: ${error}`)
+        }
     }
 
     return (
@@ -73,7 +90,7 @@ const CardContato: React.FC = ({ contato, excluiu }) => {
                     <TextInput
                         style={styles.input}
                         value={ct.fone}
-                        onChangeText={txt => setContato({...ct, nome:txt})}
+                        onChangeText={txt => setContato({...ct, fone:txt})}
                         placeholder="Ex: (47)9090-7080"
                         ref={foneRef}
                     />
