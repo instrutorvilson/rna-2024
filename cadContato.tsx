@@ -21,7 +21,7 @@ const CadContato: React.FC = () => {
     const db = getFirestore(app)
 
     async function handleGravar() {
-        /* try {
+         try {
              const dados = await query(collection(db, 'contatos'), where('email', '==', email))
              const snapshotDados = await getDocs(dados)
  
@@ -29,37 +29,26 @@ const CadContato: React.FC = () => {
                  setMsg('Já existe um contato com o email informado')               
                  return
              }
- 
-             await addDoc(collection(db, 'contatos'), { nome, fone, email, createdAT: new Date() })
+             if(image == null){
+                setMsg("selecione a foto do contato")
+                return
+             }
+            await uploadFotoContatoToFirebaseStorage() 
+            await addDoc(collection(db, 'contatos'), { nome, fone, email, urlImage: url, createdAT: new Date() })
              setMsg('Contato inserido com sucesso')
          }
          catch (error) {
              setMsg(error.message)
-         }*/ 
-        uploadImageToFirebaseStorage()      
+         }    
 
     }
     
-    function uploadImageToFirebaseStorage(){
+    async function uploadFotoContatoToFirebaseStorage(){
         try {
-            console.log(image)
             const storageRef = ref(getStorage(app), `images/${image.name}`)
-            const uploadTask = uploadBytesResumable(storageRef, image)
-            uploadTask.on(
-                'state_changed',
-               /* (snapshot) => {
-                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    // setProgress(progress);  // Atualiza a barra de progresso
-                },
-                (error) => {
-                    console.error('Erro durante o upload:', error);
-                },*/
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        setUrl(downloadURL);                        
-                    });
-                }
-            )           
+            await  uploadBytes(storageRef, image)
+            const urlDownload = await getDownloadURL(storageRef)
+            setUrl(urlDownload)
         }
         catch (error) {
             console.log(error)
@@ -68,7 +57,7 @@ const CadContato: React.FC = () => {
 
     function handleImageChange(e: any) {
         if (e.target.files[0]) {           
-            setImage(e.target.files[0]);
+            setImage(e.target.files[0]);            
         }
     }
 
